@@ -1,49 +1,49 @@
 # 工作流名称
 name: Deploy to GitHub Pages
 
-# 触发条件：在 push 到 main 或 master 分支时触发
+# 触发条件
 on:
   push:
     branches:
       - main
       - master
 
-# 新增：并发控制
+# 并发控制
 concurrency:
-  # 使用工作流名称和分支名创建一个分组
-  # 这能确保在同一个分支上，任务会排队等候而不会同时运行
   group: ${{ github.workflow }}-${{ github.ref }}
-  # 设置为 false，表示当新任务启动时，不要取消正在进行中的任务
   cancel-in-progress: false
+
+# 为工作流授予权限
+permissions:
+  contents: write # 授予对仓库内容的写权限，这是部署 gh-pages 分支所必需的
 
 # 任务
 jobs:
   deploy:
-    # 运行环境：使用最新的 Ubuntu
     runs-on: ubuntu-latest
 
-    # 步骤
     steps:
-      # 第一步：检出代码
+      # 第 1 步：检出代码
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      # 第二步：设置 Node.js 环境
+      # 第 2 步：设置 Node.js 环境
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: '20'
           cache: 'npm'
 
-      # 第三步：安装依赖
+      # 第 3 步：安装依赖
       - name: Install dependencies
         run: npm ci
 
-      # 第四步：构建项目
+      # 第 4 步：构建项目
       - name: Build project
         run: npm run build
 
-      # 第五步：部署到 gh-pages 分支
+
+      # 第 5 步：部署到 gh-pages 分支
       - name: Deploy to gh-pages
         uses: peaceiris/actions-gh-pages@v4
         with:
