@@ -42,7 +42,7 @@ A front-end interface for downloading various Minecraft server cores, built with
 #### 本地开发
 1.  克隆本仓库到本地：
     ```bash
-    git clone [https://github.com/MSLTeam/msl-dlservercores-frontend.git](https://github.com/MSLTeam/msl-dlservercores-frontend.git)
+    git clone https://github.com/MSLTeam/msl-dlservercores-frontend.git
     ```
 
 2.  进入项目目录：
