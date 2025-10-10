@@ -1,0 +1,42 @@
+# 忽略文件的说明，请参阅：https://git-scm.com/docs/gitignore
+
+# 依赖包
+# 这是最重要的部分，node_modules 文件夹包含了所有下载的依赖，体积巨大且可以被重新安装。
+/node_modules
+
+# 构建输出目录
+# `npm run build` 命令生成的最终文件，它们是由源码编译而来，不应纳入版本控制。
+/dist
+/build
+
+# 缓存文件
+# 构建工具（如 Parcel 或 Vite）生成的缓存，用于加速二次构建。
+/.parcel-cache
+/.vite
+/.cache
+
+# 日志文件
+# npm, yarn, pnpm 等包管理器可能生成的日志文件。
+npm-debug.log*
+yarn-error.log
+yarn-debug.log
+pnpm-debug.log
+
+# 操作系统生成的文件
+# 忽略 macOS, Windows 等系统自动生成的元数据文件。
+.DS_Store
+Thumbs.db
+
+# 编辑器和 IDE 的配置文件
+# 忽略 VSCode, WebStorm, Sublime Text 等编辑器的本地配置。
+.idea/
+.vscode/
+*.sublime-project
+*.sublime-workspace
+*.swp
+
+# 环境变量文件
+# 通常用于存放敏感信息（如 API 密钥），不应提交到仓库。
+.env
+.env.local
+.env.*.local
