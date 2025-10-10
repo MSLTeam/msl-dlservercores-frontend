@@ -1,0 +1,114 @@
+<!DOCTYPE html><html lang=zh-CN><meta charset=utf-8><meta name=viewport content="width=device-width, initial-scale=1"><title data-i18n=mc.serverCore.title>Minecraft 服务端核心下载</title><link href=https://jsdmirrors.aino.cyou/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css rel=stylesheet><link rel=stylesheet href=https://jsdmirrors.aino.cyou/npm/@fortawesome/fontawesome-free@6.5.2/css/all.min.css><link rel=stylesheet href=/msl-dlservercores-frontend.532b5b96.css><script>document.documentElement.setAttribute("data-bs-theme",(()=>{let e=localStorage.getItem("theme");return e||(window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light")})());</script><body class=dynamic-bg>
+
+<header class="border-bottom page-header position-relative py-5">
+    <div class="container text-center">
+        <div class="align-items-center d-flex gap-3 justify-content-center mb-3">
+            <i class="fa-cloud fa-solid title-icon"></i>
+            <h1 class="display-5 fw-bold" data-i18n=mc.serverCore.title></h1>
+        </div>
+        <p class="fs-5 text-body-secondary" data-i18n=mc.serverCore.description></p>
+        <p class="mt-3 small text-body-secondary" data-i18n=mc.serverCore.attribution></p>
+
+        <div class="align-items-center d-flex gap-2 justify-content-center mt-4">
+            <div class=dropdown>
+                <button class="align-items-center btn btn-secondary btn-sm d-flex dropdown-toggle" type=button data-bs-toggle=dropdown aria-expanded=false>
+                    <i class="fa-globe fa-solid me-1"></i>
+                    <span id=language-display>Language</span>
+                </button>
+                <ul id=language-switcher class=dropdown-menu>
+                    <li><button class=dropdown-item type=button data-lang=zh-CN>简体中文</button></li>
+                    <li><button class=dropdown-item type=button data-lang=zh-TW>繁體中文</button></li>
+                    <li><button class=dropdown-item type=button data-lang=en-US>English</button></li>
+                </ul>
+            </div>
+
+            <div class=dropdown>
+                <button class="align-items-center btn btn-secondary btn-sm d-flex dropdown-toggle" type=button data-bs-toggle=dropdown aria-expanded=false>
+                    <i id=theme-icon-active class="fa-circle-half-stroke fa-solid me-1"></i>
+                    <span data-i18n=theme.switcher></span>
+                </button>
+                <ul class=dropdown-menu>
+                    <li><button class="align-items-center d-flex dropdown-item" type=button data-theme-value=light><i class="fa-solid fa-sun me-2"></i> <span data-i18n=theme.light></span></button></li>
+                    <li><button class="align-items-center d-flex dropdown-item" type=button data-theme-value=dark><i class="fa-moon fa-solid me-2"></i> <span data-i18n=theme.dark></span></button></li>
+                    <li><button class="align-items-center d-flex dropdown-item" type=button data-theme-value=auto><i class="fa-circle-half-stroke fa-solid me-2"></i> <span data-i18n=theme.auto></span></button></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</header>
+
+<main class="container position-relative py-5">
+    <div class="g-4 row">
+        <div class=col-lg-4>
+            <div class="mb-4 section-header">
+                <h2 class="fs-4 fw-semibold" data-i18n=mc.serverCore.categories></h2>
+                <p class=text-body-secondary data-i18n=mc.serverCore.selectType></p>
+            </div>
+            <div id=categories-grid class="d-flex flex-column gap-3">
+                <div class="p-5 text-center"><div class="spinner-border text-primary" role=status><span class=visually-hidden>Loading...</span></div></div>
+            </div>
+        </div>
+        <div class=col-lg-8>
+            <div class="card selection-section shadow-sm">
+                <div class="card-body p-4">
+                    <div id=servers-panel class=d-none>
+                        <div class="align-items-md-center d-flex flex-column flex-md-row gap-3 justify-content-between mb-4 panel-header">
+                            <h3 class="fs-5 fw-semibold mb-0" data-i18n=mc.serverCore.selectCore></h3>
+                            <div class=input-group style=max-width:250px><span class=input-group-text><i class="fa-search fa-solid"></i></span><input id=search-keyword class=form-control data-i18n-placeholder=mc.serverCore.searchCore></div>
+                        </div>
+                        <div id=servers-grid class="g-3 row row-cols-1 row-cols-sm-2 row-cols-xl-3"></div>
+                    </div>
+                    <div id=versions-panel class="d-none mt-4">
+                        <div class="align-items-center d-flex justify-content-between mb-4 panel-header">
+                            <h3 id=version-card-title class="fs-5 fw-semibold mb-0"></h3>
+                            <button id=refresh-versions-btn class="align-items-center btn btn-outline-primary btn-sm d-flex gap-1"><i class="fa-arrows-rotate fa-solid"></i><span data-i18n=mc.serverCore.refresh></span></button>
+                        </div>
+                        <div id=versions-container></div>
+                    </div>
+                    <div id=empty-state class="p-5 text-center">
+                        <i class="display-1 fa-cloud fa-solid mb-3 text-body-tertiary"></i>
+                        <h3 class="fs-4 fw-semibold" data-i18n=mc.serverCore.startSelect></h3>
+                        <p class=text-body-secondary data-i18n=mc.serverCore.selectCategoryFirst></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<div class="fade modal" id=verificationModal tabindex=-1 aria-hidden=true>
+    <div class=modal-dialog>
+        <div class=modal-content>
+            <div class=modal-header><h1 class="fs-5 modal-title" id=verificationModalLabel data-i18n=mc.serverCore.fileVerification></h1><button type=button class=btn-close data-bs-dismiss=modal aria-label=Close></button></div>
+            <div class=modal-body>
+                <p><strong data-i18n=mc.serverCore.server></strong>: <span id=modal-server-name></span></p>
+                <p><strong data-i18n=mc.serverCore.version></strong>: <span id=modal-version-name></span></p>
+                <div class=mb-2><strong>SHA256:</strong></div>
+                <pre class="bg-body-tertiary p-2 rounded"><code><small id=modal-sha256></small></code></pre>
+            </div>
+            <div class=modal-footer><button type=button class="btn btn-primary" data-bs-dismiss=modal data-i18n=common.confirm></button></div>
+        </div>
+    </div>
+</div>
+<div class="bottom-0 end-0 p-3 position-fixed toast-container">
+    <div id=appToast class=toast role=alert aria-live=assertive aria-atomic=true>
+        <div class=toast-header><i id=toast-icon class="fa-solid me-2"></i><strong id=toast-title class=me-auto></strong><button type=button class=btn-close data-bs-dismiss=toast aria-label=Close></button></div>
+        <div id=toast-body class=toast-body></div>
+    </div>
+</div>
+
+<footer class="mt-auto position-relative py-4 text-center">
+    <div class=container>
+        <p class="mb-1 small text-body-secondary" data-i18n=footer.copyright></p>
+        <p class="mb-0 small text-body-secondary">
+            <a href=https://beian.miit.gov.cn/ target=_blank class="text-decoration-none text-reset" data-i18n=footer.icp></a>
+        </p>
+    </div>
+</footer>
+
+<script src=https://jsdmirrors.aino.cyou/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js></script>
+<script src=/msl-dlservercores-frontend.cd1ba3ee.js></script>
+<script src=/msl-dlservercores-frontend.2d74a1d1.js></script>
+<script src=/msl-dlservercores-frontend.ff2223e4.js></script>
+<script src=/msl-dlservercores-frontend.f381f6d3.js></script>
+
