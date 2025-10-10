@@ -21,8 +21,8 @@ A front-end interface for downloading various Minecraft server cores, built with
 
 ### 🎨 界面预览 (Screenshot)
 
-*请在此处替换为您项目的截图*
-![项目截图](https://i.imgur.com/e24qGkC.jpeg)
+
+![项目截图](./image.webp)
 
 
 ### 🛠️ 技术栈 (Tech Stack)
