@@ -1,15 +1,15 @@
 {
   "name": "msl-dlservercores-frontend",
   "version": "1.0.0",
-  "description": "",
+  "description": "MSL服务端镜像站前端。",
   "source": "index.html",
   "scripts": {
     "dev": "parcel",
     "build": "parcel build"
   },
   "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "author": "MSLTeam - luluxiaoyu",
+  "license": "AGPLv3",
   "devDependencies": {
     "parcel": "^2.16.0"
   }
