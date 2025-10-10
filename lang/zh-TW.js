@@ -55,7 +55,7 @@ const translations_zh_TW = {
     'theme.auto': '自動',
 
     // 服务归属信息
-    'mc.serverCore.attribution': '本服務由<a href="https://github.com/MSLTeam" target="_blank" class="link-secondary">MSLTeam</a>提供，歡迎使用我們的<a href="https://www.mslmc.cn/" target="_blank" class="link-secondary">MSL開服器</a>，下載API來源<a href="https://www.mslmc.cn/docs/other/msl-mirrors.html" target="_blank" class="link-secondary">MSL-API-V3</a>',
+    'mc.serverCore.attribution': '本服務由<a href="https://github.com/MSLTeam" target="_blank" class="link-secondary">MSLTeam</a>提供，歡迎使用我們的<a href="https://www.mslmc.cn/" target="_blank" class="link-secondary">MSL開服器</a>，下載API來源<a href="https://www.mslmc.cn/docs/other/msl-mirrors.html" target="_blank" class="link-secondary">MSL-API-V3</a>。',
 
     // 页脚
     'footer.copyright': 'Copyright © MSLTeam 2021-2025 All Right Reserved.',

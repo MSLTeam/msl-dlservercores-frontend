@@ -59,5 +59,5 @@ const translations_en_US = {
 
     // Footer
     'footer.copyright': 'Copyright © MSLTeam 2021-2025 All Right Received.',
-    'footer.icp': 'Yue ICP备2023094648号-2',
+    'footer.icp': '粤 ICP备2023094648号-2',
 };
