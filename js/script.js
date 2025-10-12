@@ -210,7 +210,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     async function handleServerClick(serverName) {
-        if (state.selectedServer === serverName) return;
         state.selectedServer = serverName;
         state.selectedVersion = null;
         state.versions = [];
