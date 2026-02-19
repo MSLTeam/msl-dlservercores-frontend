@@ -23,47 +23,78 @@ document.addEventListener('DOMContentLoaded', () => {
         emptyState: document.getElementById('empty-state'),
         searchInput: document.getElementById('search-keyword'),
         refreshBtn: document.getElementById('refresh-versions-btn'),
-        languageSwitcher: document.getElementById('language-switcher'),
+        languageSwitcher: document.querySelector('#language-display').parentElement.nextElementSibling,
         languageDisplay: document.getElementById('language-display'),
         verificationModal: document.getElementById('verificationModal'),
         appToast: document.getElementById('appToast'),
     };
 
-    // --- 简单的下拉菜单逻辑 ---
+    // --- 优雅的下拉菜单逻辑 ---
     document.querySelectorAll('.dropdown-toggle').forEach(btn => {
         btn.addEventListener('click', (e) => {
             e.stopPropagation();
             const menu = btn.nextElementSibling;
-            // 关闭其他所有下拉菜单
+            const isHidden = menu.classList.contains('hidden');
+
+            // 关闭其他
             document.querySelectorAll('.dropdown-menu').forEach(m => {
-                if (m !== menu) m.classList.add('hidden');
+                m.classList.add('hidden');
+                setTimeout(() => m.classList.remove('opacity-100', 'scale-100'), 10);
             });
-            menu.classList.toggle('hidden');
+
+            if (isHidden) {
+                menu.classList.remove('hidden');
+                // 触发过渡动画
+                setTimeout(() => {
+                    menu.classList.remove('opacity-0', 'scale-95');
+                    menu.classList.add('opacity-100', 'scale-100');
+                }, 10);
+            }
         });
     });
 
     document.addEventListener('click', () => {
-        document.querySelectorAll('.dropdown-menu').forEach(m => m.classList.add('hidden'));
+        document.querySelectorAll('.dropdown-menu').forEach(m => {
+            m.classList.remove('opacity-100', 'scale-100');
+            m.classList.add('opacity-0', 'scale-95');
+            setTimeout(() => m.classList.add('hidden'), 200); // 等待动画完成
+        });
     });
 
-    // --- 原生 Modal 逻辑 ---
+    // --- 现代化 Modal 逻辑 ---
     const modalUtils = {
         show() {
-            elements.verificationModal.classList.remove('hidden');
+            const modal = elements.verificationModal;
+            const backdrop = modal.querySelector('.modal-backdrop');
+            const content = modal.querySelector('.modal-content');
+
+            modal.classList.remove('hidden');
+            setTimeout(() => {
+                backdrop.classList.remove('opacity-0');
+                content.classList.remove('opacity-0', 'scale-95');
+            }, 10);
         },
         hide() {
-            elements.verificationModal.classList.add('hidden');
+            const modal = elements.verificationModal;
+            const backdrop = modal.querySelector('.modal-backdrop');
+            const content = modal.querySelector('.modal-content');
+
+            backdrop.classList.add('opacity-0');
+            content.classList.add('opacity-0', 'scale-95');
+            setTimeout(() => modal.classList.add('hidden'), 300);
         }
     };
     document.querySelectorAll('.modal-close, .modal-backdrop').forEach(el => {
         el.addEventListener('click', modalUtils.hide);
     });
 
-    // --- 原生 Toast 逻辑 ---
+    // --- 现代化 Toast 逻辑 ---
     let toastTimeout;
     const toastUtils = {
         show(message, title = t('common.notice', '提示'), type = 'success') {
+            const toast = elements.appToast;
             const toastIcon = document.getElementById('toast-icon');
+            const toastIconWrapper = document.getElementById('toast-icon-wrapper');
             const toastTitle = document.getElementById('toast-title');
             const toastBody = document.getElementById('toast-body');
 
@@ -71,43 +102,40 @@ document.addEventListener('DOMContentLoaded', () => {
             toastBody.textContent = message;
 
             const typeMap = {
-                'success': 'fa-check-circle text-emerald-500',
-                'error': 'fa-xmark-circle text-red-500',
-                'info': 'fa-info-circle text-blue-500'
+                'success': { icon: 'fa-check', color: 'text-emerald-500', bg: 'bg-emerald-100 dark:bg-emerald-500/20' },
+                'error': { icon: 'fa-xmark', color: 'text-red-500', bg: 'bg-red-100 dark:bg-red-500/20' },
+                'info': { icon: 'fa-info', color: 'text-blue-500', bg: 'bg-blue-100 dark:bg-blue-500/20' }
             };
-            toastIcon.className = `fa-solid ${typeMap[type] || typeMap['info']}`;
+            const style = typeMap[type] || typeMap['info'];
 
-            // 显示 Toast
-            elements.appToast.classList.remove('translate-y-full', 'opacity-0');
+            toastIcon.className = `fa-solid ${style.icon} ${style.color}`;
+            toastIconWrapper.className = `shrink-0 w-10 h-10 rounded-full flex items-center justify-center ${style.bg}`;
 
-            // 自动隐藏
+            toast.classList.remove('translate-y-8', 'opacity-0');
+
             clearTimeout(toastTimeout);
-            toastTimeout = setTimeout(() => {
-                this.hide();
-            }, 3500);
+            toastTimeout = setTimeout(() => this.hide(), 4000);
         },
         hide() {
-            elements.appToast.classList.add('translate-y-full', 'opacity-0');
+            elements.appToast.classList.add('translate-y-8', 'opacity-0');
         }
     };
-    document.querySelectorAll('.toast-close').forEach(el => {
-        el.addEventListener('click', () => toastUtils.hide());
-    });
+    document.querySelector('.toast-close').addEventListener('click', () => toastUtils.hide());
 
-    // --- 图标和颜色映射 ---
+    // --- 极简图标映射 ---
     const classifyConfig = {
-        pluginsCore: { icon: 'fa-solid fa-puzzle-piece', color: '16, 185, 129' }, // emerald-500
-        pluginsAndModsCore_Forge: { icon: 'fa-solid fa-code-branch', color: '249, 115, 22' }, // orange-500
-        pluginsAndModsCore_Fabric: { icon: 'fa-solid fa-microchip', color: '139, 92, 246' }, // violet-500
-        modsCore_Forge: { icon: 'fa-solid fa-code', color: '245, 158, 11' }, // amber-500
-        modsCore_Fabric: { icon: 'fa-solid fa-bug', color: '168, 85, 247' }, // purple-500
-        vanillaCore: { icon: 'fa-solid fa-cloud', color: '20, 184, 166' }, // teal-500
-        bedrockCore: { icon: 'fa-solid fa-mobile-screen-button', color: '6, 182, 212' }, // cyan-500
-        proxyCore: { icon: 'fa-solid fa-network-wired', color: '239, 68, 68' }, // red-500
-        default: { icon: 'fa-solid fa-server', color: '59, 130, 246' } // blue-500
+        pluginsCore: { icon: 'fa-puzzle-piece', color: 'text-emerald-500' },
+        pluginsAndModsCore_Forge: { icon: 'fa-code-branch', color: 'text-orange-500' },
+        pluginsAndModsCore_Fabric: { icon: 'fa-microchip', color: 'text-violet-500' },
+        modsCore_Forge: { icon: 'fa-code', color: 'text-amber-500' },
+        modsCore_Fabric: { icon: 'fa-bug', color: 'text-purple-500' },
+        vanillaCore: { icon: 'fa-cube', color: 'text-teal-500' },
+        bedrockCore: { icon: 'fa-mobile-screen', color: 'text-cyan-500' },
+        proxyCore: { icon: 'fa-network-wired', color: 'text-red-500' },
+        default: { icon: 'fa-server', color: 'text-blue-500' }
     };
 
-    // --- 多语言处理 (需要外部存在翻译对象) ---
+    // --- 多语言处理 ---
     const translations = {
         'zh-CN': typeof translations_zh_CN !== 'undefined' ? translations_zh_CN : {},
         'zh-TW': typeof translations_zh_TW !== 'undefined' ? translations_zh_TW : {},
@@ -126,10 +154,14 @@ document.addEventListener('DOMContentLoaded', () => {
             el.placeholder = t(el.getAttribute('data-i18n-placeholder'));
         });
         document.title = t('mc.serverCore.title') || 'Minecraft 服务端核心下载 | MSLMC';
-        const currentLangOption = elements.languageSwitcher.querySelector(`[data-lang="${state.currentLang}"]`);
-        if (currentLangOption) {
-            elements.languageDisplay.textContent = currentLangOption.textContent;
-        }
+
+        // 更新下拉菜单显示
+        const btns = document.querySelectorAll(`[data-lang]`);
+        btns.forEach(b => {
+            if (b.dataset.lang === state.currentLang) {
+                elements.languageDisplay.textContent = b.textContent;
+            }
+        });
     }
 
     function switchLanguage(lang) {
@@ -159,32 +191,30 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     };
 
-    // --- 渲染函数 ---
+    // --- 高级渲染函数 ---
     function renderCategories() {
         elements.categoriesGrid.innerHTML = state.serverClassify.map(category => {
             const config = classifyConfig[category.key] || classifyConfig.default;
             const title = t(`mc.serverCore.${category.key}`);
-            const description = t(`mc.serverCore.${category.key}Desc`);
             const isActive = state.selectedCategory === title;
 
-            // Tailwind 毛玻璃卡片样式
-            const baseClasses = "category-card group flex items-center p-4 rounded-xl transition-all duration-300 cursor-pointer border backdrop-blur-md bg-white/60 dark:bg-slate-800/60";
-            const normalClasses = "border-primary/10 dark:border-white/10 hover:-translate-y-1 hover:shadow-lg hover:border-primary/50";
-            const activeClasses = "bg-primary/10 border-primary shadow-[0_0_20px_rgba(59,130,246,0.2)] dark:bg-primary/20 scale-[1.02]";
+            // 现代化侧边栏卡片样式
+            const baseClasses = "category-card group flex items-center p-3 rounded-2xl transition-all duration-300 cursor-pointer border";
+            const normalClasses = "border-transparent hover:bg-white/60 dark:hover:bg-slate-800/50 hover:border-slate-200/50 dark:hover:border-slate-700/50 text-slate-600 dark:text-slate-400";
+            const activeClasses = "bg-white dark:bg-slate-800 border-slate-200/60 dark:border-slate-700 shadow-sm shadow-slate-200/50 dark:shadow-none text-slate-900 dark:text-white";
 
             return `
-                <div class="${baseClasses} ${isActive ? activeClasses : normalClasses}" 
-                     data-key="${category.key}" data-title="${title}">
-                    <div class="flex items-center justify-center w-12 h-12 rounded-lg shrink-0 transition-transform group-hover:scale-110" 
-                         style="background-color: rgba(${config.color}, 0.15); color: rgb(${config.color}); font-size: 1.25rem;">
-                        <i class="${config.icon}"></i>
+                <div class="${baseClasses} ${isActive ? activeClasses : normalClasses}" data-title="${title}">
+                    <div class="flex items-center justify-center w-10 h-10 rounded-xl transition-transform duration-300 ${isActive ? 'scale-110 bg-slate-50 dark:bg-slate-900 ring-1 ring-slate-100 dark:ring-slate-800' : 'group-hover:scale-110 group-hover:bg-white dark:group-hover:bg-slate-800'}">
+                        <i class="fa-solid ${config.icon} ${config.color} text-lg drop-shadow-sm"></i>
                     </div>
-                    <div class="ml-4 flex-grow">
-                        <h3 class="text-base font-semibold mb-1 text-slate-800 dark:text-slate-100">${title}</h3>
-                        <p class="text-xs text-slate-500 dark:text-slate-400 mb-2 leading-tight">${description}</p>
-                        <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-slate-200 dark:bg-slate-700 text-slate-700 dark:text-slate-300">
-                            ${category.cores.length} ${t('mc.serverCore.coreCount', '个核心')}
-                        </span>
+                    <div class="ml-3 flex-grow">
+                        <div class="flex justify-between items-center">
+                            <h3 class="text-sm font-semibold tracking-tight ${isActive ? 'text-slate-900 dark:text-white' : 'text-slate-700 dark:text-slate-300'}">${title}</h3>
+                            <span class="inline-flex items-center justify-center px-2 py-0.5 rounded-full text-[10px] font-bold ${isActive ? 'bg-primary-50 text-primary-600 dark:bg-primary-900/30 dark:text-primary-400' : 'bg-slate-100 text-slate-500 dark:bg-slate-800 dark:text-slate-400'}">
+                                ${category.cores.length}
+                            </span>
+                        </div>
                     </div>
                 </div>
             `;
@@ -193,11 +223,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function renderServers() {
         if (!state.selectedCategory) {
-            elements.serversPanel.classList.add('hidden');
+            elements.serversPanel.classList.replace('flex', 'hidden');
             elements.emptyState.classList.remove('hidden');
             return;
         }
-        elements.serversPanel.classList.remove('hidden');
+        elements.serversPanel.classList.replace('hidden', 'flex');
         elements.emptyState.classList.add('hidden');
 
         const category = state.serverClassify.find(c => t(`mc.serverCore.${c.key}`) === state.selectedCategory);
@@ -207,16 +237,26 @@ document.addEventListener('DOMContentLoaded', () => {
             core.toLowerCase().includes(state.searchKeyword.toLowerCase())
         );
 
+        if(filteredCores.length === 0) {
+            elements.serversGrid.innerHTML = `<div class="col-span-full text-center py-8 text-slate-400 text-sm">No servers found</div>`;
+            return;
+        }
+
         elements.serversGrid.innerHTML = filteredCores.map(server => {
             const isActive = state.selectedServer === server;
-            const baseClasses = "server-card flex justify-between items-center p-3 rounded-lg cursor-pointer transition-all backdrop-blur-sm bg-white/40 dark:bg-slate-700/60 border";
-            const normalClasses = "border-transparent hover:border-primary hover:shadow-md hover:-translate-y-px text-slate-700 dark:text-slate-200";
-            const activeClasses = "border-primary bg-primary/5 dark:bg-primary/20 shadow-md text-primary dark:text-primary-subtle font-medium";
+
+            // 现代化网格卡片
+            const baseClasses = "server-card relative flex justify-between items-center p-4 rounded-2xl cursor-pointer transition-all duration-300 border bg-white/50 dark:bg-slate-800/30 backdrop-blur-sm overflow-hidden";
+            const normalClasses = "border-slate-200/60 dark:border-slate-700/50 hover:border-slate-300 dark:hover:border-slate-600 hover:bg-white dark:hover:bg-slate-800 hover:shadow-lg hover:shadow-slate-200/40 dark:hover:shadow-none hover:-translate-y-1 text-slate-700 dark:text-slate-300";
+            const activeClasses = "border-primary-500 dark:border-primary-500 shadow-md shadow-primary-500/10 bg-white dark:bg-slate-800 text-slate-900 dark:text-white font-semibold ring-1 ring-primary-500/20";
 
             return `
-                <div class="${baseClasses} ${isActive ? activeClasses : normalClasses}" data-server="${server}">
-                    <span class="${isActive ? 'font-semibold' : 'font-medium'}">${server}</span>
-                    ${isActive ? '<i class="fa-solid fa-check text-primary"></i>' : ''}
+                <div class="${baseClasses} ${isActive ? activeClasses : normalClasses} group" data-server="${server}">
+                    ${isActive ? '<div class="absolute inset-y-0 left-0 w-1 bg-primary-500"></div>' : ''}
+                    <span class="${isActive ? 'ml-1' : ''} transition-all duration-300 z-10">${server}</span>
+                    <div class="w-6 h-6 rounded-full flex items-center justify-center transition-all duration-300 ${isActive ? 'bg-primary-500 text-white' : 'bg-slate-100 dark:bg-slate-800 text-slate-400 group-hover:bg-slate-200 dark:group-hover:bg-slate-700'}">
+                        <i class="fa-solid ${isActive ? 'fa-check text-xs' : 'fa-chevron-right text-[10px]'}"></i>
+                    </div>
                 </div>
             `;
         }).join('');
@@ -228,36 +268,38 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
         elements.versionsPanel.classList.remove('hidden');
-        elements.versionCardTitle.textContent = `${state.selectedServer} ${t('mc.serverCore.versionList', '版本列表')}`;
+        elements.versionCardTitle.textContent = `${state.selectedServer}`;
 
         if (state.loadingVersions) {
             elements.versionsContainer.innerHTML = `
-                <div class="text-center py-10">
-                    <i class="fa-solid fa-circle-notch fa-spin text-primary text-2xl"></i>
-                    <p class="mt-3 text-sm text-slate-500">${t('mc.serverCore.loadingVersions', '正在加载版本...')}</p>
+                <div class="flex flex-col items-center justify-center py-12">
+                    <div class="w-8 h-8 border-2 border-slate-200 dark:border-slate-700 border-t-primary-500 rounded-full animate-spin"></div>
+                    <p class="mt-4 text-sm font-medium text-slate-500">${t('mc.serverCore.loadingVersions', 'Fetching versions...')}</p>
                 </div>`;
             return;
         }
         if (state.versions.length === 0) {
-            elements.versionsContainer.innerHTML = `<div class="text-center py-10 text-slate-500">${t('mc.serverCore.noVersionsFound', '未找到可用版本')}</div>`;
+            elements.versionsContainer.innerHTML = `<div class="text-center py-12 text-slate-500 bg-slate-50 dark:bg-slate-800/30 rounded-2xl border border-dashed border-slate-200 dark:border-slate-700">${t('mc.serverCore.noVersionsFound', '未找到可用版本')}</div>`;
             return;
         }
 
-        elements.versionsContainer.innerHTML = `<div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
+        elements.versionsContainer.innerHTML = `<div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3">
             ${state.versions.map(version => {
             const isActive = state.selectedVersion === version;
             const isDownloading = state.loadingDownload && isActive;
-            const baseClasses = "version-card flex justify-between items-center p-3 rounded-lg transition-all backdrop-blur-sm bg-white/40 dark:bg-slate-700/60 border";
-            const normalClasses = "border-transparent cursor-pointer hover:border-primary hover:shadow-md hover:-translate-y-px text-slate-700 dark:text-slate-200";
-            const activeClasses = "border-primary bg-primary/5 dark:bg-primary/20 shadow-md text-primary";
-            const disabledClasses = "opacity-60 cursor-not-allowed";
+
+            // 极简的版本药丸按钮
+            const baseClasses = "version-card group flex justify-between items-center px-4 py-3 rounded-xl transition-all duration-200 border bg-white/60 dark:bg-slate-800/50 backdrop-blur-md";
+            const normalClasses = "border-slate-200/80 dark:border-slate-700/80 cursor-pointer hover:border-slate-300 dark:hover:border-slate-600 hover:bg-white dark:hover:bg-slate-800 hover:shadow-sm text-slate-600 dark:text-slate-300";
+            const activeClasses = "border-primary-500/50 bg-primary-50 dark:bg-primary-900/20 text-primary-700 dark:text-primary-400 ring-1 ring-primary-500/20 shadow-sm";
+            const disabledClasses = "opacity-60 cursor-wait";
 
             return `
                     <div class="${baseClasses} ${isActive ? activeClasses : normalClasses} ${isDownloading ? disabledClasses : ''}" data-version="${version}">
-                        <span class="text-sm font-medium">${version}</span>
+                        <span class="text-sm font-semibold tracking-tight truncate mr-2">${version}</span>
                         ${isDownloading
-                ? '<i class="fa-solid fa-circle-notch fa-spin text-primary"></i>'
-                : '<i class="fa-solid fa-download text-slate-400 group-hover:text-primary"></i>'}
+                ? '<div class="w-3 h-3 border-2 border-primary-500/30 border-t-primary-500 rounded-full animate-spin shrink-0"></div>'
+                : `<i class="fa-solid fa-cloud-arrow-down text-sm shrink-0 transition-colors ${isActive ? 'text-primary-500' : 'text-slate-300 dark:text-slate-600 group-hover:text-primary-400'}"></i>`}
                     </div>
                 `;
         }).join('')}
@@ -315,7 +357,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 document.body.appendChild(link);
                 link.click();
                 document.body.removeChild(link);
-                toastUtils.show(t('mc.serverCore.downloadStarted', '下载已开始'));
+                toastUtils.show(t('mc.serverCore.downloadStarted', 'Download starting...'));
 
                 if (res.data.sha256) {
                     document.getElementById('modal-server-name').textContent = state.selectedServer;
@@ -334,7 +376,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // --- 主题切换 ---
+    // --- 主题切换逻辑 ---
     const themeSwitcher = {
         init() {
             this.updateActiveIcon(this.getEffectiveTheme());
@@ -343,10 +385,9 @@ document.addEventListener('DOMContentLoaded', () => {
                     const theme = toggle.getAttribute('data-theme-value');
                     localStorage.setItem('theme', theme);
                     this.applyTheme(theme);
-                    document.querySelectorAll('.dropdown-menu').forEach(m => m.classList.add('hidden')); // 关闭菜单
                 });
             });
-            window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
+            window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => {
                 if (localStorage.getItem('theme') === 'auto' || !localStorage.getItem('theme')) {
                     this.applyTheme('auto');
                 }
@@ -367,11 +408,11 @@ document.addEventListener('DOMContentLoaded', () => {
         updateActiveIcon(theme) {
             const iconEl = document.getElementById('theme-icon-active');
             const icons = {
-                light: 'fa-sun',
-                dark: 'fa-moon',
-                auto: 'fa-circle-half-stroke'
+                light: 'fa-sun text-amber-500',
+                dark: 'fa-moon text-indigo-400',
+                auto: 'fa-desktop text-slate-400'
             };
-            iconEl.className = `fa-solid ${icons[theme] || icons['auto']} me-2`;
+            iconEl.className = `fa-solid ${icons[theme] || icons['auto']} mr-2`;
         }
     };
 
@@ -383,13 +424,13 @@ document.addEventListener('DOMContentLoaded', () => {
         if (primaryLang === 'zh') {
             return (browserLang.toLowerCase().includes('tw') || browserLang.toLowerCase().includes('hk')) ? 'zh-TW' : 'zh-CN';
         }
-        const matchedLang = supportedLangs.find(lang => lang.startsWith(primaryLang));
-        return matchedLang || 'zh-CN';
+        return supportedLangs.find(lang => lang.startsWith(primaryLang)) || 'zh-CN';
     }
 
     async function initialize() {
         themeSwitcher.init();
         switchLanguage(getInitialLang());
+
         try {
             const res = await API.getMCServerCoreClassify();
             if (res.code === 200) {
@@ -402,30 +443,25 @@ document.addEventListener('DOMContentLoaded', () => {
             }
             renderAll();
         } catch (error) {
-            elements.categoriesGrid.innerHTML = `<div class="bg-red-50 text-red-500 p-4 rounded-lg">${t('mc.serverCore.networkError', '网络错误，请稍后重试')}</div>`;
+            elements.categoriesGrid.innerHTML = `
+                <div class="p-4 rounded-xl bg-red-50 dark:bg-red-500/10 border border-red-200 dark:border-red-500/20 text-red-600 dark:text-red-400 text-sm font-medium">
+                    <i class="fa-solid fa-triangle-exclamation mr-2"></i> ${t('mc.serverCore.networkError', 'Network Error')}
+                </div>`;
         }
 
-        elements.languageSwitcher.addEventListener('click', e => {
-            const langButton = e.target.closest('[data-lang]');
-            if (langButton) {
-                switchLanguage(langButton.dataset.lang);
-                elements.languageSwitcher.classList.add('hidden'); // 关闭菜单
-            }
-        });
+        // 事件委托绑定
+        document.addEventListener('click', e => {
+            const langBtn = e.target.closest('[data-lang]');
+            if (langBtn) switchLanguage(langBtn.dataset.lang);
 
-        elements.categoriesGrid.addEventListener('click', e => {
-            const card = e.target.closest('.category-card');
-            if (card) handleCategorySelect(card.dataset.title);
-        });
+            const categoryCard = e.target.closest('.category-card');
+            if (categoryCard) handleCategorySelect(categoryCard.dataset.title);
 
-        elements.serversGrid.addEventListener('click', e => {
-            const card = e.target.closest('.server-card');
-            if (card) handleServerClick(card.dataset.server);
-        });
+            const serverCard = e.target.closest('.server-card');
+            if (serverCard) handleServerClick(serverCard.dataset.server);
 
-        elements.versionsContainer.addEventListener('click', e => {
-            const card = e.target.closest('.version-card');
-            if (card) handleVersionClick(card.dataset.version);
+            const versionCard = e.target.closest('.version-card');
+            if (versionCard) handleVersionClick(versionCard.dataset.version);
         });
 
         elements.searchInput.addEventListener('input', e => {
@@ -436,6 +472,11 @@ document.addEventListener('DOMContentLoaded', () => {
         elements.refreshBtn.addEventListener('click', () => {
             if (state.selectedServer && !state.loadingVersions) {
                 handleServerClick(state.selectedServer);
+
+                // 给刷新按钮一个旋转的小动画反馈
+                const icon = elements.refreshBtn.querySelector('i');
+                icon.classList.add('animate-spin');
+                setTimeout(() => icon.classList.remove('animate-spin'), 500);
             }
         });
     }
