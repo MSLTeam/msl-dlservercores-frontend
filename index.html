@@ -1,85 +1,135 @@
-<!DOCTYPE html><html lang=zh-CN><meta charset=utf-8><meta name=viewport content="width=device-width, initial-scale=1"><title data-i18n=mc.serverCore.title>Minecraft 服务端核心下载 | MSLMC</title><link rel=icon type=image/svg+xml href=https://www.mslmc.cn/favicon.ico><link rel=stylesheet href=https://jsdmirrors.aino.cyou/npm/@fortawesome/fontawesome-free@6.5.2/css/all.min.css><script src=https://cdn.tailwindcss.com></script><script>tailwind.config={darkMode:"class",theme:{extend:{colors:{primary:{DEFAULT:"#3b82f6",subtle:"#eff6ff",dark_subtle:"#1e3a8a"}}}}};</script><link rel=stylesheet href=/msl-dlservercores-frontend.3900104f.css><meta name=keywords content="MSL, MSLFrp, 下载MC服务端,服务端,下载 ,开服器, Minecraft, Frp, 联机, Minecraft Server Launcher"><meta name=description content=欢迎使用MSL的服务端镜像下载服务！这里提供许多类型的Minecraft服务端镜像下载哦~><script>var _hmt=_hmt||[];!function(){var e=document.createElement("script");e.src="https://hm.baidu.com/hm.js?860400d3f2dc679e20fb9f44c46e5aab";var t=document.getElementsByTagName("script")[0];t.parentNode.insertBefore(e,t)}();</script><script>"dark"===(()=>{let e=localStorage.getItem("theme");return e&&"auto"!==e?e:window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light"})()&&document.documentElement.classList.add("dark");</script><body class="dark:text-slate-200 duration-300 dynamic-bg flex flex-col font-sans min-h-screen text-slate-800 transition-colors">
+<!DOCTYPE html><html lang=zh-CN class=antialiased><meta charset=utf-8><meta name=viewport content="width=device-width, initial-scale=1"><title data-i18n=mc.serverCore.title>Minecraft 服务端核心下载 | MSLMC</title><link rel=icon type=image/svg+xml href=https://www.mslmc.cn/favicon.ico><link rel=stylesheet href=https://jsdmirrors.aino.cyou/npm/@fortawesome/fontawesome-free@6.5.2/css/all.min.css><script src=https://cdn.tailwindcss.com></script><script>tailwind.config={darkMode:"class",theme:{extend:{fontFamily:{sans:["-apple-system","BlinkMacSystemFont",'"PingFang SC"','"HarmonyOS Sans SC"','"Microsoft YaHei"','"Helvetica Neue"',"Helvetica","Arial","sans-serif"]},colors:{primary:{50:"#eff6ff",100:"#dbeafe",500:"#3b82f6",600:"#2563eb",900:"#1e3a8a"}},animation:{"fade-in-up":"fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards"},keyframes:{fadeInUp:{"0%":{opacity:"0",transform:"translateY(20px)"},"100%":{opacity:"1",transform:"translateY(0)"}}}}}};</script><link rel=stylesheet href=/msl-dlservercores-frontend.86af1e67.css><meta name=keywords content="MSL, MSLFrp, 下载MC服务端,服务端,下载 ,开服器, Minecraft, Frp, 联机, Minecraft Server Launcher"><meta name=description content=欢迎使用MSL的服务端镜像下载服务！><script>"dark"===(()=>{let e=localStorage.getItem("theme");return e&&"auto"!==e?e:window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light"})()&&document.documentElement.classList.add("dark");</script><script>var _hmt=_hmt||[];!function(){var e=document.createElement("script");e.src="https://hm.baidu.com/hm.js?860400d3f2dc679e20fb9f44c46e5aab";var t=document.getElementsByTagName("script")[0];t.parentNode.insertBefore(e,t)}();</script><body class="bg-slate-50 dark:bg-slate-950 dark:text-slate-200 duration-500 flex flex-col min-h-screen selection:bg-primary-500/30 text-slate-800 transition-colors">
 
-<header class="border-b border-slate-200/50 dark:border-slate-700/50 py-12 relative z-20">
-    <div class="container mx-auto px-4 text-center">
-        <div class="flex gap-3 items-center justify-center mb-4">
-            <i class="fa-cloud fa-solid text-5xl text-amber-400"></i>
-            <h1 class="font-bold md:text-5xl text-4xl" data-i18n=mc.serverCore.title></h1>
+<div class="fixed inset-0 overflow-hidden pointer-events-none z-0">
+    <div class="absolute animate-blob bg-blue-400/20 blur-[120px] dark:bg-blue-600/10 dark:mix-blend-lighten h-[40%] left-[-10%] mix-blend-multiply rounded-full top-[-10%] w-[40%]"></div>
+    <div class="absolute animate-blob animation-delay-2000 bg-teal-400/20 blur-[120px] dark:bg-teal-600/10 dark:mix-blend-lighten h-[35%] mix-blend-multiply right-[-10%] rounded-full top-[20%] w-[35%]"></div>
+    <div class="absolute animate-blob animation-delay-4000 bg-indigo-400/20 blur-[120px] bottom-[-10%] dark:bg-indigo-600/10 dark:mix-blend-lighten h-[45%] left-[20%] mix-blend-multiply rounded-full w-[45%]"></div>
+</div>
+
+<header class="pb-8 pt-16 relative z-20">
+    <div class="animate-fade-in-up lg:px-8 max-w-7xl mx-auto px-4 sm:px-6 text-center">
+        <div class="bg-primary-50 dark:bg-primary-900/30 dark:text-primary-400 font-medium inline-flex items-center justify-center mb-6 px-3 py-1 ring-1 ring-inset ring-primary-500/20 rounded-full text-primary-600 text-sm">
+            <i class="fa-bolt fa-solid mr-2 text-amber-500"></i> MSLMC High-Speed Mirror
         </div>
-        <p class="dark:text-slate-400 text-lg text-slate-600" data-i18n=mc.serverCore.description></p>
-        <p class="dark:text-slate-500 mt-3 text-slate-500 text-sm" data-i18n=mc.serverCore.attribution></p>
 
-        <div class="flex gap-3 items-center justify-center mt-6 relative">
-            <div class="custom-dropdown relative">
-                <button class="bg-slate-100 border border-slate-200 dark:bg-slate-800 dark:border-slate-700 dark:hover:bg-slate-700 dropdown-toggle flex font-medium hover:bg-slate-200 items-center px-3 py-1.5 rounded-md text-sm transition-colors">
-                    <i class="fa-globe fa-solid me-2"></i>
+        <h1 class="dark:text-white font-extrabold mb-4 md:text-5xl text-4xl text-slate-900 tracking-tight" data-i18n=mc.serverCore.title>Minecraft 服务端核心下载</h1>
+
+        <p class="dark:text-slate-300 font-medium max-w-2xl mb-2 mx-auto text-lg text-slate-600">欢迎使用 MSL 的服务端镜像下载服务！</p>
+        <p class="dark:text-slate-400 max-w-2xl mx-auto text-slate-500 text-sm" data-i18n=mc.serverCore.description></p>
+
+        <div class="animate-fade-in-up flex flex-wrap gap-4 justify-center mb-6 mt-10 opacity-0" style=animation-delay:.15s>
+
+            <a href=https://www.mslmc.cn/ target=_blank class="backdrop-blur-md bg-white/60 border border-slate-200/50 dark:bg-slate-800/60 dark:border-slate-700/50 dark:hover:bg-slate-800 dark:hover:shadow-none duration-300 flex group hover:bg-white hover:scale-105 hover:shadow-slate-200/50 hover:shadow-xl items-center px-5 py-3 rounded-2xl transition-all">
+                <div class="bg-blue-50 dark:bg-blue-900/30 dark:text-blue-400 flex group-hover:rotate-12 h-10 items-center justify-center mr-3 rounded-xl text-blue-600 transition-transform w-10">
+                    <i class="fa-server fa-solid text-lg"></i>
+                </div>
+                <div class=text-left>
+                    <div class="dark:text-white font-bold leading-tight text-slate-900 text-sm">MSL 开服器</div>
+                    <div class="dark:text-slate-400 mt-0.5 text-[11px] text-slate-500">经典稳定发行版</div>
+                </div>
+            </a>
+
+            <a href=https://mslx.mslmc.cn/ target=_blank class="backdrop-blur-md bg-gradient-to-r border border-primary-500/30 dark:from-primary-900/20 dark:to-indigo-900/20 duration-300 flex from-primary-50 group hover:scale-105 hover:shadow-primary-500/20 hover:shadow-xl items-center overflow-hidden px-6 py-3 relative ring-1 ring-primary-500/10 rounded-2xl to-indigo-50 transition-all">
+                <div class="absolute bg-gradient-to-r dark:via-white/10 duration-1000 ease-out from-transparent group-hover:left-[200%] h-full left-[-100%] to-transparent top-0 transition-all via-white/50 w-1/2 z-0"></div>
+                <div class="bg-primary-500 flex group-hover:scale-110 h-10 items-center justify-center mr-3 relative rounded-xl shadow-md shadow-primary-500/30 text-white transition-transform w-10 z-10">
+                    <i class="fa-rocket fa-solid text-lg"></i>
+                </div>
+                <div class="relative text-left z-10">
+                    <div class="dark:text-primary-300 font-bold leading-tight text-primary-700 text-sm">MSLX 开服器</div>
+                    <div class="dark:text-primary-400/80 font-medium mt-0.5 text-[11px] text-primary-600/80">全新跨平台架构</div>
+                </div>
+            </a>
+
+            <a href=https://api.mslmc.cn/ target=_blank class="backdrop-blur-md bg-white/60 border border-slate-200/50 dark:bg-slate-800/60 dark:border-slate-700/50 dark:hover:bg-slate-800 dark:hover:shadow-none duration-300 flex group hover:bg-white hover:scale-105 hover:shadow-slate-200/50 hover:shadow-xl items-center px-5 py-3 rounded-2xl transition-all">
+                <div class="bg-emerald-50 dark:bg-emerald-900/30 dark:text-emerald-400 flex group-hover:-rotate-12 h-10 items-center justify-center mr-3 rounded-xl text-emerald-600 transition-transform w-10">
+                    <i class="fa-code fa-solid text-lg"></i>
+                </div>
+                <div class=text-left>
+                    <div class="dark:text-white font-bold leading-tight text-slate-900 text-sm">MSL API 3</div>
+                    <div class="dark:text-slate-400 mt-0.5 text-[11px] text-slate-500">开发者接口服务</div>
+                </div>
+            </a>
+        </div>
+
+        <div class="animate-fade-in-up flex gap-4 items-center justify-center mt-6 opacity-0" style=animation-delay:.25s>
+            <div class="custom-dropdown group relative">
+                <button class="backdrop-blur-md bg-white/60 border border-slate-200/50 dark:bg-slate-800/60 dark:border-slate-700/50 dark:hover:bg-slate-800 dropdown-toggle duration-300 flex font-medium hover:bg-white items-center px-4 py-2 rounded-xl shadow-sm text-sm transition-all">
+                    <i class="fa-globe fa-solid mr-2 text-slate-400"></i>
                     <span id=language-display>Language</span>
                 </button>
-                <ul id=language-switcher class="absolute bg-white border border-slate-200 dark:bg-slate-800 dark:border-slate-700 dropdown-menu hidden left-0 mt-1 py-1 rounded-md shadow-lg text-left top-full w-32 z-50">
-                    <li><button class="dark:hover:bg-slate-700 dark:text-slate-200 hover:bg-slate-100 px-4 py-2 text-left text-slate-700 text-sm w-full" data-lang=zh-CN>简体中文</button></li>
-                    <li><button class="dark:hover:bg-slate-700 dark:text-slate-200 hover:bg-slate-100 px-4 py-2 text-left text-slate-700 text-sm w-full" data-lang=zh-TW>繁體中文</button></li>
-                    <li><button class="dark:hover:bg-slate-700 dark:text-slate-200 hover:bg-slate-100 px-4 py-2 text-left text-slate-700 text-sm w-full" data-lang=en-US>English</button></li>
-                </ul>
+                <div class="absolute backdrop-blur-xl bg-white/90 border border-slate-200/50 dark:bg-slate-800/90 dark:border-slate-700/50 dropdown-menu duration-200 hidden left-0 mt-2 opacity-0 origin-top-left overflow-hidden py-1 rounded-xl scale-95 shadow-xl top-full transform transition-all w-36 z-50">
+                    <button class="dark:hover:bg-slate-700/80 dark:text-slate-200 hover:bg-slate-100/80 px-4 py-2.5 text-left text-slate-700 text-sm transition-colors w-full" data-lang=zh-CN>简体中文</button>
+                    <button class="dark:hover:bg-slate-700/80 dark:text-slate-200 hover:bg-slate-100/80 px-4 py-2.5 text-left text-slate-700 text-sm transition-colors w-full" data-lang=zh-TW>繁體中文</button>
+                    <button class="dark:hover:bg-slate-700/80 dark:text-slate-200 hover:bg-slate-100/80 px-4 py-2.5 text-left text-slate-700 text-sm transition-colors w-full" data-lang=en-US>English</button>
+                </div>
             </div>
 
-            <div class="custom-dropdown relative">
-                <button class="bg-slate-100 border border-slate-200 dark:bg-slate-800 dark:border-slate-700 dark:hover:bg-slate-700 dropdown-toggle flex font-medium hover:bg-slate-200 items-center px-3 py-1.5 rounded-md text-sm transition-colors">
-                    <i id=theme-icon-active class="fa-circle-half-stroke fa-solid me-2"></i>
+            <div class="custom-dropdown group relative">
+                <button class="backdrop-blur-md bg-white/60 border border-slate-200/50 dark:bg-slate-800/60 dark:border-slate-700/50 dark:hover:bg-slate-800 dropdown-toggle duration-300 flex font-medium hover:bg-white items-center px-4 py-2 rounded-xl shadow-sm text-sm transition-all">
+                    <i id=theme-icon-active class="fa-circle-half-stroke fa-solid mr-2 text-slate-400"></i>
                     <span data-i18n=theme.switcher></span>
                 </button>
-                <ul class="absolute bg-white border border-slate-200 dark:bg-slate-800 dark:border-slate-700 dropdown-menu hidden mt-1 py-1 right-0 rounded-md shadow-lg text-left top-full w-36 z-50">
-                    <li><button class="dark:hover:bg-slate-700 dark:text-slate-200 flex hover:bg-slate-100 items-center px-4 py-2 text-slate-700 text-sm w-full" data-theme-value=light><i class="fa-solid fa-sun me-2 text-center w-5"></i> <span data-i18n=theme.light></span></button></li>
-                    <li><button class="dark:hover:bg-slate-700 dark:text-slate-200 flex hover:bg-slate-100 items-center px-4 py-2 text-slate-700 text-sm w-full" data-theme-value=dark><i class="fa-moon fa-solid me-2 text-center w-5"></i> <span data-i18n=theme.dark></span></button></li>
-                    <li><button class="dark:hover:bg-slate-700 dark:text-slate-200 flex hover:bg-slate-100 items-center px-4 py-2 text-slate-700 text-sm w-full" data-theme-value=auto><i class="fa-circle-half-stroke fa-solid me-2 text-center w-5"></i> <span data-i18n=theme.auto></span></button></li>
-                </ul>
+                <div class="absolute backdrop-blur-xl bg-white/90 border border-slate-200/50 dark:bg-slate-800/90 dark:border-slate-700/50 dropdown-menu duration-200 hidden mt-2 opacity-0 origin-top-right overflow-hidden py-1 right-0 rounded-xl scale-95 shadow-xl top-full transform transition-all w-40 z-50">
+                    <button class="dark:hover:bg-slate-700/80 dark:text-slate-200 flex hover:bg-slate-100/80 items-center px-4 py-2.5 text-slate-700 text-sm transition-colors w-full" data-theme-value=light><i class="fa-solid fa-sun mr-2 text-amber-500 text-center w-5"></i> <span data-i18n=theme.light></span></button>
+                    <button class="dark:hover:bg-slate-700/80 dark:text-slate-200 flex hover:bg-slate-100/80 items-center px-4 py-2.5 text-slate-700 text-sm transition-colors w-full" data-theme-value=dark><i class="fa-moon fa-solid mr-2 text-center text-indigo-400 w-5"></i> <span data-i18n=theme.dark></span></button>
+                    <button class="dark:hover:bg-slate-700/80 dark:text-slate-200 flex hover:bg-slate-100/80 items-center px-4 py-2.5 text-slate-700 text-sm transition-colors w-full" data-theme-value=auto><i class="fa-desktop fa-solid mr-2 text-center text-slate-400 w-5"></i> <span data-i18n=theme.auto></span></button>
+                </div>
             </div>
         </div>
     </div>
 </header>
 
-<main class="container flex-grow mx-auto px-4 py-12 relative z-10">
-    <div class="flex flex-col gap-8 lg:flex-row">
-        <div class="lg:w-1/3 w-full xl:w-1/4">
-            <div class=mb-6>
-                <h2 class="font-semibold mb-1 text-xl" data-i18n=mc.serverCore.categories></h2>
-                <p class="dark:text-slate-400 text-slate-500 text-sm" data-i18n=mc.serverCore.selectType></p>
-            </div>
-            <div id=categories-grid class="flex flex-col gap-4">
-                <div class="p-10 text-center"><i class="fa-circle-notch fa-solid fa-spin text-3xl text-primary"></i></div>
+<main class="flex-grow lg:px-8 max-w-7xl mx-auto px-4 py-4 relative sm:px-6 w-full z-10">
+    <div class="flex flex-col gap-8 lg:flex-row lg:gap-12">
+        <div class="animate-fade-in-up lg:w-1/4 opacity-0 shrink-0 w-full" style=animation-delay:.3s>
+            <div class="sticky top-8">
+                <h2 class="font-bold mb-4 px-1 text-slate-400 text-xs tracking-wider uppercase" data-i18n=mc.serverCore.categories></h2>
+                <div id=categories-grid class="flex flex-col gap-2">
+                    <div class="animate-pulse flex p-3 space-x-4"><div class="bg-slate-200 dark:bg-slate-800 h-10 rounded-xl w-10"></div><div class="flex-1 py-1 space-y-3"><div class="bg-slate-200 dark:bg-slate-800 h-2 rounded w-3/4"></div><div class="bg-slate-200 dark:bg-slate-800 h-2 rounded w-1/2"></div></div></div>
+                </div>
             </div>
         </div>
 
-        <div class="lg:w-2/3 w-full xl:w-3/4">
-            <div class="backdrop-blur-xl bg-white/60 border border-blue-500/10 dark:bg-slate-800/60 dark:border-white/10 overflow-hidden rounded-2xl shadow-lg">
-                <div class="md:p-8 p-6">
+        <div class="animate-fade-in-up lg:w-3/4 opacity-0 w-full" style=animation-delay:.4s>
+            <div class="backdrop-blur-2xl bg-white/40 border border-white/60 dark:bg-slate-900/40 dark:border-slate-700/50 dark:ring-white/10 dark:shadow-none overflow-hidden relative ring-1 ring-slate-900/5 rounded-3xl shadow-2xl shadow-slate-200/50">
+                <div class="absolute bg-gradient-to-r dark:via-white/20 from-transparent h-px inset-x-0 to-transparent top-0 via-white/80"></div>
 
-                    <div id=servers-panel class=hidden>
-                        <div class="flex flex-col gap-4 items-start justify-between mb-6 md:flex-row md:items-center">
-                            <h3 class="font-semibold m-0 text-lg" data-i18n=mc.serverCore.selectCore></h3>
-                            <div class="md:w-64 relative w-full">
-                                <span class="absolute flex inset-y-0 items-center left-0 pl-3 text-slate-400">
-                                    <i class="fa-search fa-solid"></i>
-                                </span>
-                                <input id=search-keyword class="bg-white border border-slate-200 dark:bg-slate-900 dark:border-slate-700 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-primary pl-10 pr-4 py-2 rounded-lg text-sm transition-shadow w-full" data-i18n-placeholder=mc.serverCore.searchCore>
-                            </div>
+                <div class="flex flex-col min-h-[500px] p-6 sm:p-10">
+
+                    <div id=empty-state class="flex flex-1 flex-col items-center justify-center py-20 text-center">
+                        <div class="bg-slate-100 dark:bg-slate-800/80 dark:ring-slate-900/50 duration-300 flex h-24 hover:scale-105 items-center justify-center mb-6 ring-8 ring-slate-50 rounded-full transition-transform w-24">
+                            <i class="dark:text-slate-600 fa-cube fa-solid text-4xl text-slate-300"></i>
                         </div>
-                        <div id=servers-grid class="gap-3 grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3"></div>
+                        <h3 class="dark:text-slate-200 font-bold mb-2 text-slate-800 text-xl" data-i18n=mc.serverCore.startSelect></h3>
+                        <p class="dark:text-slate-400 text-slate-500" data-i18n=mc.serverCore.selectCategoryFirst></p>
                     </div>
 
-                    <div id=versions-panel class="border-slate-200/50 border-t dark:border-slate-700/50 hidden mt-8 pt-8">
-                        <div class="flex items-center justify-between mb-6">
-                            <h3 id=version-card-title class="font-semibold m-0 text-lg"></h3>
-                            <button id=refresh-versions-btn class="border border-primary flex gap-2 hover:bg-primary hover:text-white items-center px-3 py-1.5 rounded-lg text-primary text-sm transition-colors">
-                                <i class="fa-arrows-rotate fa-solid"></i><span data-i18n=mc.serverCore.refresh></span>
+                    <div id=servers-panel class="flex-col gap-8 hidden">
+                        <div class="flex flex-col gap-4 items-start justify-between sm:flex-row sm:items-center">
+                            <div>
+                                <h3 class="dark:text-white font-bold text-2xl text-slate-900 tracking-tight" data-i18n=mc.serverCore.selectCore></h3>
+                            </div>
+                            <div class="group relative sm:w-72 w-full">
+                                <span class="absolute flex group-focus-within:text-primary-500 inset-y-0 items-center left-0 pl-4 text-slate-400 transition-colors">
+                                    <i class="fa-magnifying-glass fa-solid text-sm"></i>
+                                </span>
+                                <input id=search-keyword class="backdrop-blur-md bg-white/60 border border-slate-200 dark:bg-slate-950/50 dark:border-slate-700 dark:placeholder-slate-500 focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500/50 pl-11 placeholder-slate-400 pr-4 py-2.5 rounded-2xl shadow-sm text-sm transition-all w-full" data-i18n-placeholder=mc.serverCore.searchCore>
+                            </div>
+                        </div>
+                        <div id=servers-grid class="gap-4 grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3"></div>
+                    </div>
+
+                    <div id=versions-panel class="border-slate-200/60 border-t dark:border-slate-700/60 hidden mt-12 pt-10 relative">
+                        <div class="flex items-end justify-between mb-8">
+                            <div>
+                                <p class="font-semibold mb-1 text-primary-500 text-xs tracking-wider uppercase" data-i18n=mc.serverCore.versionList></p>
+                                <h3 id=version-card-title class="dark:text-white font-bold text-2xl text-slate-900 tracking-tight"></h3>
+                            </div>
+                            <button id=refresh-versions-btn class="dark:hover:bg-primary-900/30 dark:ring-slate-700 duration-300 hover:bg-primary-50 hover:ring-primary-200 hover:text-primary-600 p-2.5 ring-1 ring-inset ring-slate-200 rounded-xl text-slate-400 transition-all" title=Refresh>
+                                <i class="fa-rotate-right fa-solid"></i>
                             </button>
                         </div>
                         <div id=versions-container></div>
-                    </div>
-
-                    <div id=empty-state class="py-20 text-center">
-                        <i class="dark:text-slate-600 fa-cloud fa-solid mb-6 text-7xl text-slate-300"></i>
-                        <h3 class="font-semibold mb-2 text-xl" data-i18n=mc.serverCore.startSelect></h3>
-                        <p class="dark:text-slate-400 text-slate-500" data-i18n=mc.serverCore.selectCategoryFirst></p>
                     </div>
                 </div>
             </div>
@@ -87,48 +137,66 @@
     </div>
 </main>
 
-<div id=verificationModal class="fixed hidden inset-0 overflow-y-auto z-50" aria-labelledby=modal-title role=dialog aria-modal=true>
-    <div class="flex items-end justify-center min-h-screen pb-20 pt-4 px-4 sm:block sm:p-0 text-center">
-        <div class="backdrop-blur-sm bg-slate-900/50 fixed inset-0 modal-backdrop transition-opacity" aria-hidden=true></div>
-        <span class="hidden sm:align-middle sm:h-screen sm:inline-block" aria-hidden=true>​</span>
-        <div class="align-bottom bg-white border border-slate-200 dark:bg-slate-800 dark:border-slate-700 inline-block overflow-hidden rounded-xl shadow-2xl sm:align-middle sm:max-w-lg sm:my-8 text-left transform transition-all w-full">
-            <div class="border-b border-slate-200 dark:border-slate-700 flex items-center justify-between px-6 py-4">
-                <h3 class="font-medium leading-6 text-lg" id=modal-title data-i18n=mc.serverCore.fileVerification></h3>
-                <button type=button class="focus:outline-none hover:text-slate-500 modal-close text-slate-400">
-                    <i class="fa-solid fa-xmark text-xl"></i>
+<div id=verificationModal class="fixed hidden inset-0 z-50" aria-labelledby=modal-title role=dialog aria-modal=true>
+    <div class="flex items-center justify-center min-h-screen p-4 sm:p-0 text-center">
+        <div class="backdrop-blur-sm bg-slate-900/40 dark:bg-slate-950/80 fixed inset-0 modal-backdrop opacity-0 transition-opacity" aria-hidden=true></div>
+
+        <div class="bg-white border border-slate-200/50 dark:bg-slate-900 dark:border-slate-700/50 modal-content opacity-0 overflow-hidden relative ring-1 ring-slate-900/5 rounded-3xl scale-95 shadow-2xl sm:max-w-lg sm:my-8 text-left transform transition-all w-full">
+            <div class="absolute pr-6 pt-6 right-0 top-0">
+                <button type=button class="bg-slate-50 dark:bg-slate-800 dark:hover:text-slate-200 focus:outline-none hover:text-slate-600 modal-close p-2 rounded-full text-slate-400 transition-colors">
+                    <i class="fa-solid fa-xmark flex h-5 items-center justify-center leading-none text-lg w-5"></i>
                 </button>
             </div>
-            <div class="px-6 py-5">
-                <p class=mb-2><strong data-i18n=mc.serverCore.server></strong>: <span id=modal-server-name class="dark:text-slate-300 text-slate-600"></span></p>
-                <p class=mb-4><strong data-i18n=mc.serverCore.version></strong>: <span id=modal-version-name class="dark:text-slate-300 text-slate-600"></span></p>
-                <div class="font-semibold mb-2 text-sm">SHA256:</div>
-                <pre class="bg-slate-100 border border-slate-200 dark:bg-slate-900 dark:border-slate-700 overflow-x-auto p-3 rounded-lg text-sm"><code id=modal-sha256 class="dark:text-slate-300 select-all text-slate-700"></code></pre>
+            <div class="p-8 sm:p-10">
+                <div class="bg-primary-100 dark:bg-primary-900/30 dark:text-primary-400 flex h-12 items-center justify-center mb-6 rounded-full text-primary-600 w-12">
+                    <i class="fa-shield-halved fa-solid text-xl"></i>
+                </div>
+                <h3 class="dark:text-white font-bold mb-6 text-2xl text-slate-900" id=modal-title data-i18n=mc.serverCore.fileVerification></h3>
+
+                <div class=space-y-4>
+                    <div class="border-b border-slate-100 dark:border-slate-800 flex items-center justify-between py-3">
+                        <span class="font-medium text-slate-500" data-i18n=mc.serverCore.server></span>
+                        <span id=modal-server-name class="dark:text-white font-semibold text-slate-900"></span>
+                    </div>
+                    <div class="border-b border-slate-100 dark:border-slate-800 flex items-center justify-between py-3">
+                        <span class="font-medium text-slate-500" data-i18n=mc.serverCore.version></span>
+                        <span id=modal-version-name class="bg-slate-100 dark:bg-slate-800 dark:text-white font-semibold px-3 py-1 rounded-lg text-slate-900 text-sm"></span>
+                    </div>
+                    <div class=pt-2>
+                        <span class="block font-medium mb-2 text-slate-500 text-sm">SHA256 Checksum</span>
+                        <div class="group relative">
+                            <pre class="bg-slate-50 border border-slate-200 dark:bg-slate-950 dark:border-slate-800 overflow-x-auto p-4 rounded-xl text-xs"><code id=modal-sha256 class="dark:text-slate-400 font-mono select-all text-slate-600"></code></pre>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="bg-slate-50 border-slate-200 border-t dark:bg-slate-800/50 dark:border-slate-700 flex justify-end px-6 py-4">
-                <button type=button class="bg-primary font-medium hover:bg-blue-600 modal-close px-4 py-2 rounded-lg shadow-sm text-white transition-colors" data-i18n=common.confirm></button>
+            <div class="bg-slate-50/50 border-slate-100 border-t dark:bg-slate-900/50 dark:border-slate-800 flex justify-end px-8 py-6">
+                <button type=button class="bg-slate-900 dark:bg-white dark:hover:bg-slate-100 dark:text-slate-900 font-medium hover:bg-slate-800 modal-close px-6 py-2.5 rounded-xl shadow-md shadow-slate-900/10 text-white transition-colors" data-i18n=common.confirm></button>
             </div>
         </div>
     </div>
 </div>
 
-<div class="bottom-4 fixed flex flex-col gap-2 right-4 z-50">
-    <div id=appToast class="bg-white border border-slate-200 dark:bg-slate-800 dark:border-slate-700 duration-300 ease-out flex gap-3 items-start opacity-0 p-4 rounded-xl shadow-xl transform transition-all translate-y-full w-80">
-        <i id=toast-icon class="fa-solid mt-0.5 text-lg"></i>
-        <div class=flex-1>
-            <h4 id=toast-title class="font-semibold m-0 text-sm"></h4>
-            <div id=toast-body class="dark:text-slate-400 mt-1 text-slate-500 text-sm"></div>
+<div class="bottom-6 fixed flex flex-col gap-3 pointer-events-none right-6 z-50">
+    <div id=appToast class="backdrop-blur-xl bg-white/90 border border-slate-200/60 dark:bg-slate-800/90 dark:border-slate-700/60 dark:ring-white/10 duration-400 ease-out flex gap-4 items-start opacity-0 p-4 pointer-events-auto ring-1 ring-slate-900/5 rounded-2xl shadow-2xl transform transition-all translate-y-8 w-80">
+        <div id=toast-icon-wrapper class="bg-slate-100 dark:bg-slate-700 flex h-10 items-center justify-center rounded-full shrink-0 w-10">
+            <i id=toast-icon class="fa-solid text-lg"></i>
         </div>
-        <button type=button class="dark:hover:text-slate-200 focus:outline-none hover:text-slate-600 text-slate-400 toast-close">
+        <div class="flex-1 pt-0.5">
+            <h4 id=toast-title class="dark:text-white font-bold m-0 text-slate-900 text-sm tracking-tight"></h4>
+            <div id=toast-body class="dark:text-slate-400 leading-snug mt-1 text-slate-500 text-sm"></div>
+        </div>
+        <button type=button class="dark:hover:text-slate-200 hover:text-slate-600 p-1 text-slate-400 toast-close transition-colors">
             <i class="fa-solid fa-xmark"></i>
         </button>
     </div>
 </div>
 
-<footer class="border-slate-200/50 border-t dark:border-slate-700/50 mt-auto py-6 relative text-center z-10">
-    <div class="container mx-auto px-4">
-        <p class="dark:text-slate-400 mb-2 text-slate-500 text-sm" data-i18n=footer.copyright></p>
-        <p class="dark:text-slate-400 m-0 text-slate-500 text-sm">
-            <a href=https://beian.miit.gov.cn/ target=_blank class="hover:text-primary transition-colors" data-i18n=footer.icp></a>
+<footer class="mt-auto py-8 relative text-center z-10">
+    <div class="max-w-7xl mx-auto px-4">
+        <p class="dark:text-slate-500 mb-2 text-slate-400 text-sm" data-i18n=footer.copyright></p>
+        <p class="dark:text-slate-500 m-0 text-slate-400 text-sm">
+            <a href=https://beian.miit.gov.cn/ target=_blank class="hover:text-primary-500 transition-colors" data-i18n=footer.icp></a>
         </p>
     </div>
 </footer>
@@ -136,6 +204,5 @@
 <script src=/msl-dlservercores-frontend.25e59d30.js></script>
 <script src=/msl-dlservercores-frontend.70ddbbf7.js></script>
 <script src=/msl-dlservercores-frontend.2c4f4274.js></script>
-<script src=/msl-dlservercores-frontend.befa896c.js></script>
-
+<script src=/msl-dlservercores-frontend.fb8b29a5.js></script>
 
