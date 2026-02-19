@@ -1,97 +1,9 @@
-/* 页面头部图标颜色 */
-.title-icon {
-    font-size: 2.5rem;
-    color: #fbbf24;
-}
-
-/* 分类卡片样式 */
-.category-card {
-    transition: all 0.3s ease;
-    cursor: pointer;
-    border: 1px solid rgba(var(--bs-primary-rgb), 0.1);
-    background-color: rgba(255, 255, 255, 0.6);
-    backdrop-filter: blur(10px);
-}
-
-.category-card:hover {
-    transform: translateY(-2px);
-    box-shadow: var(--bs-box-shadow-sm);
-    border-color: var(--bs-primary);
-}
-
-.category-card.active {
-    background-color: rgba(var(--bs-primary-rgb), 0.15);
-    border-color: var(--bs-primary);
-    box-shadow: 0 0 20px rgba(var(--bs-primary-rgb), 0.2);
-}
-
-.category-icon {
-    width: 50px;
-    height: 50px;
-    font-size: 1.5rem;
-    flex-shrink: 0;
-}
-
-/* 右侧选择面板 */
-.selection-section.card {
-    border-radius: 1rem;
-    border: 1px solid rgba(var(--bs-primary-rgb), 0.1);
-    background-color: rgba(255, 255, 255, 0.6);
-    backdrop-filter: blur(10px);
-    box-shadow: var(--bs-box-shadow-sm);
-}
-
-/* 服务端和版本卡片 */
-.server-card,
-.version-card {
-    transition: all 0.2s ease;
-    cursor: pointer;
-    border-radius: 0.375rem; /* 保持与 Bootstrap 一致的圆角 */
-    border: 1px solid transparent;
-    /* [新增] 毛玻璃效果 */
-    background-color: rgba(255, 255, 255, 0.4);
-    backdrop-filter: blur(5px);
-}
-
-.server-card:hover,
-.version-card:hover {
-    border-color: var(--bs-primary);
-    box-shadow: 0 4px 12px rgba(var(--bs-primary-rgb), 0.15);
-    transform: translateY(-1px);
-}
-
-.server-card.active,
-.version-card.active {
-    border-color: var(--bs-primary);
-    background-color: var(--bs-primary-bg-subtle); /* 激活时使用 Bootstrap 的主题色，更清晰 */
-    box-shadow: 0 4px 12px rgba(var(--bs-primary-rgb), 0.25);
-}
-
-.version-card.downloading {
-    opacity: 0.7;
-    cursor: not-allowed;
-}
-
-/* 响应式调整 */
-@media (max-width: 767px) {
-    .panel-header {
-        align-items: flex-start;
-    }
-    .panel-header .input-group {
-        width: 100% !important;
-        max-width: 100% !important;
-    }
-}
-
-/* =========================================
-      动态几何渐变背景
-  =========================================
-*/
 @keyframes gradient-animation {
     0% { background-position: 0% 50%; }
     50% { background-position: 100% 50%; }
     100% { background-position: 0% 50%; }
 }
+
 @keyframes move-blob-1 {
     0%   { transform: translate(0, 0); }
     25%  { transform: translate(60vw, 20vh); }
@@ -99,6 +11,7 @@
     75%  { transform: translate(-20vw, 50vh); }
     100% { transform: translate(0, 0); }
 }
+
 @keyframes move-blob-2 {
     0%   { transform: translate(0, 0); }
     25%  { transform: translate(-50vw, 30vh); }
@@ -106,17 +19,15 @@
     75%  { transform: translate(40vw, -10vh); }
     100% { transform: translate(0, 0); }
 }
+
 body.dynamic-bg {
     background: linear-gradient(-45deg, #e6f7ff, #d1eaff, #c2dfff, #b3d5ff);
     background-size: 400% 400%;
     animation: gradient-animation 15s ease infinite;
-    transition: background-color 0.5s ease;
     position: relative;
     overflow-x: hidden;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
 }
+
 body.dynamic-bg::before,
 body.dynamic-bg::after {
     content: '';
@@ -125,7 +36,9 @@ body.dynamic-bg::after {
     border-radius: 50%;
     filter: blur(100px);
     opacity: 0.6;
+    pointer-events: none; /* 防止遮挡点击 */
 }
+
 body.dynamic-bg::before {
     width: 400px;
     height: 400px;
@@ -134,6 +47,7 @@ body.dynamic-bg::before {
     left: 10vw;
     animation: move-blob-1 30s infinite linear;
 }
+
 body.dynamic-bg::after {
     width: 300px;
     height: 300px;
@@ -143,54 +57,20 @@ body.dynamic-bg::after {
     animation: move-blob-2 25s infinite linear;
 }
 
-/* [修复] 调整 Z-index 解决下拉菜单遮挡问题 */
-header {
-    z-index: 10; /* 提高 header 层级 */
-}
-main, footer {
-    z-index: 1;
-}
-
-/* 页脚样式 */
-footer {
-    background-color: transparent;
-    border-top: 1px solid var(--bs-border-color-translucent);
-    transition: all 0.5s ease;
-}
-
-/* =========================================
-      黑暗模式下的背景和卡片样式
- =========================================
-*/
-[data-bs-theme="dark"] body.dynamic-bg {
-    background: linear-gradient(-45deg, #142c52, #163561, #143e78,#124996);
+/* 黑暗模式背景 */
+html.dark body.dynamic-bg {
+    background: linear-gradient(-45deg, #0f172a, #1e293b, #0f2042, #172554);
     background-size: 400% 400%;
-    animation: gradient-animation 20s ease infinite;
 }
-[data-bs-theme="dark"] body.dynamic-bg::before {
-    background: rgba(100, 116, 139, 0.4);
+
+html.dark body.dynamic-bg::before {
+    background: rgba(56, 189, 248, 0.15);
 }
-[data-bs-theme="dark"] body.dynamic-bg::after {
-    background: rgba(52, 211, 153, 0.3);
+
+html.dark body.dynamic-bg::after {
+    background: rgba(52, 211, 153, 0.15);
 }
-[data-bs-theme="dark"] .category-card {
-    background-color: rgba(29, 42, 56, 0.6);
-    border: 1px solid rgba(255, 255, 255, 0.08);
-}
-[data-bs-theme="dark"] .category-card.active {
-    background-color: rgba(var(--bs-primary-rgb), 0.2);
-}
-[data-bs-theme="dark"] .selection-section.card {
-    background-color: rgba(29, 42, 56, 0.6);
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
-}
-/* [新增] 深色模式下小卡片的毛玻璃效果 */
-[data-bs-theme="dark"] .server-card,
-[data-bs-theme="dark"] .version-card {
-    background-color: rgba(40, 58, 77, 0.6);
-}
-[data-bs-theme="dark"] .server-card.active,
-[data-bs-theme="dark"] .version-card.active {
-    background-color: var(--bs-primary-bg-subtle);
+
+pre code {
+    scrollbar-width: thin;
 }

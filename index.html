@@ -5,9 +5,26 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title data-i18n="mc.serverCore.title">Minecraft 服务端核心下载 | MSLMC</title>
     <link rel="icon" type="image/svg+xml" href="https://www.mslmc.cn/favicon.ico" />
-    <link href="https://jsdmirrors.aino.cyou/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 
     <link rel="stylesheet" href="https://jsdmirrors.aino.cyou/npm/@fortawesome/fontawesome-free@6.5.2/css/all.min.css">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            DEFAULT: '#3b82f6', // blue-500
+                            subtle: '#eff6ff', // blue-50
+                            dark_subtle: '#1e3a8a', // blue-900
+                        }
+                    }
+                }
+            }
+        }
+    </script>
 
     <link rel="stylesheet" href="css/style.css">
     <meta name="keywords" content="MSL, MSLFrp, 下载MC服务端,服务端,下载 ,开服器, Minecraft, Frp, 联机, Minecraft Server Launcher" />
@@ -17,84 +34,97 @@
             const getStoredTheme = () => localStorage.getItem('theme');
             const getPreferredTheme = () => {
                 const storedTheme = getStoredTheme();
-                if (storedTheme) return storedTheme;
+                if (storedTheme && storedTheme !== 'auto') return storedTheme;
                 return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
             };
-            document.documentElement.setAttribute('data-bs-theme', getPreferredTheme());
+            if (getPreferredTheme() === 'dark') {
+                document.documentElement.classList.add('dark');
+            }
         })();
     </script>
 </head>
-<body class="dynamic-bg">
+<body class="dynamic-bg text-slate-800 dark:text-slate-200 min-h-screen flex flex-col font-sans transition-colors duration-300">
 
-<header class="page-header py-5 border-bottom position-relative">
-    <div class="container text-center">
-        <div class="d-flex justify-content-center align-items-center gap-3 mb-3">
-            <i class="fa-solid fa-cloud title-icon"></i>
-            <h1 class="display-5 fw-bold" data-i18n="mc.serverCore.title"></h1>
+<header class="relative py-12 border-b border-slate-200/50 dark:border-slate-700/50 z-20">
+    <div class="container mx-auto px-4 text-center">
+        <div class="flex justify-center items-center gap-3 mb-4">
+            <i class="fa-solid fa-cloud text-amber-400 text-5xl"></i>
+            <h1 class="text-4xl md:text-5xl font-bold" data-i18n="mc.serverCore.title"></h1>
         </div>
-        <p class="fs-5 text-body-secondary" data-i18n="mc.serverCore.description"></p>
-        <p class="small text-body-secondary mt-3" data-i18n="mc.serverCore.attribution"></p>
+        <p class="text-lg text-slate-600 dark:text-slate-400" data-i18n="mc.serverCore.description"></p>
+        <p class="text-sm text-slate-500 dark:text-slate-500 mt-3" data-i18n="mc.serverCore.attribution"></p>
 
-        <div class="d-flex justify-content-center align-items-center gap-2 mt-4">
-            <div class="dropdown">
-                <button class="btn btn-secondary btn-sm dropdown-toggle d-flex align-items-center" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    <i class="fa-solid fa-globe me-1"></i>
+        <div class="flex justify-center items-center gap-3 mt-6 relative">
+            <div class="relative custom-dropdown">
+                <button class="dropdown-toggle px-3 py-1.5 bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 border border-slate-200 dark:border-slate-700 rounded-md text-sm font-medium flex items-center transition-colors">
+                    <i class="fa-solid fa-globe me-2"></i>
                     <span id="language-display">Language</span>
                 </button>
-                <ul id="language-switcher" class="dropdown-menu">
-                    <li><button class="dropdown-item" type="button" data-lang="zh-CN">简体中文</button></li>
-                    <li><button class="dropdown-item" type="button" data-lang="zh-TW">繁體中文</button></li>
-                    <li><button class="dropdown-item" type="button" data-lang="en-US">English</button></li>
+                <ul id="language-switcher" class="dropdown-menu hidden absolute top-full left-0 mt-1 w-32 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-md shadow-lg py-1 text-left z-50">
+                    <li><button class="w-full px-4 py-2 text-sm text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-700 text-left" data-lang="zh-CN">简体中文</button></li>
+                    <li><button class="w-full px-4 py-2 text-sm text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-700 text-left" data-lang="zh-TW">繁體中文</button></li>
+                    <li><button class="w-full px-4 py-2 text-sm text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-700 text-left" data-lang="en-US">English</button></li>
                 </ul>
             </div>
 
-            <div class="dropdown">
-                <button class="btn btn-secondary btn-sm dropdown-toggle d-flex align-items-center" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    <i id="theme-icon-active" class="fa-solid fa-circle-half-stroke me-1"></i>
+            <div class="relative custom-dropdown">
+                <button class="dropdown-toggle px-3 py-1.5 bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 border border-slate-200 dark:border-slate-700 rounded-md text-sm font-medium flex items-center transition-colors">
+                    <i id="theme-icon-active" class="fa-solid fa-circle-half-stroke me-2"></i>
                     <span data-i18n="theme.switcher"></span>
                 </button>
-                <ul class="dropdown-menu">
-                    <li><button class="dropdown-item d-flex align-items-center" type="button" data-theme-value="light"><i class="fa-solid fa-sun me-2"></i> <span data-i18n="theme.light"></span></button></li>
-                    <li><button class="dropdown-item d-flex align-items-center" type="button" data-theme-value="dark"><i class="fa-solid fa-moon me-2"></i> <span data-i18n="theme.dark"></span></button></li>
-                    <li><button class="dropdown-item d-flex align-items-center" type="button" data-theme-value="auto"><i class="fa-solid fa-circle-half-stroke me-2"></i> <span data-i18n="theme.auto"></span></button></li>
+                <ul class="dropdown-menu hidden absolute top-full right-0 mt-1 w-36 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-md shadow-lg py-1 text-left z-50">
+                    <li><button class="w-full px-4 py-2 text-sm text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-700 flex items-center" data-theme-value="light"><i class="fa-solid fa-sun w-5 text-center me-2"></i> <span data-i18n="theme.light"></span></button></li>
+                    <li><button class="w-full px-4 py-2 text-sm text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-700 flex items-center" data-theme-value="dark"><i class="fa-solid fa-moon w-5 text-center me-2"></i> <span data-i18n="theme.dark"></span></button></li>
+                    <li><button class="w-full px-4 py-2 text-sm text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-700 flex items-center" data-theme-value="auto"><i class="fa-solid fa-circle-half-stroke w-5 text-center me-2"></i> <span data-i18n="theme.auto"></span></button></li>
                 </ul>
             </div>
         </div>
     </div>
 </header>
 
-<main class="container py-5 position-relative">
-    <div class="row g-4">
-        <div class="col-lg-4">
-            <div class="section-header mb-4">
-                <h2 class="fs-4 fw-semibold" data-i18n="mc.serverCore.categories"></h2>
-                <p class="text-body-secondary" data-i18n="mc.serverCore.selectType"></p>
+<main class="container mx-auto px-4 py-12 relative z-10 flex-grow">
+    <div class="flex flex-col lg:flex-row gap-8">
+        <div class="w-full lg:w-1/3 xl:w-1/4">
+            <div class="mb-6">
+                <h2 class="text-xl font-semibold mb-1" data-i18n="mc.serverCore.categories"></h2>
+                <p class="text-slate-500 dark:text-slate-400 text-sm" data-i18n="mc.serverCore.selectType"></p>
             </div>
-            <div id="categories-grid" class="d-flex flex-column gap-3">
-                <div class="text-center p-5"><div class="spinner-border text-primary" role="status"><span class="visually-hidden">Loading...</span></div></div>
+            <div id="categories-grid" class="flex flex-col gap-4">
+                <div class="text-center p-10"><i class="fa-solid fa-circle-notch fa-spin text-primary text-3xl"></i></div>
             </div>
         </div>
-        <div class="col-lg-8">
-            <div class="selection-section card shadow-sm">
-                <div class="card-body p-4">
-                    <div id="servers-panel" class="d-none">
-                        <div class="panel-header d-flex flex-column flex-md-row justify-content-between align-items-md-center mb-4 gap-3">
-                            <h3 class="fs-5 fw-semibold mb-0" data-i18n="mc.serverCore.selectCore"></h3>
-                            <div class="input-group" style="max-width: 250px;"><span class="input-group-text"><i class="fa-solid fa-search"></i></span><input type="text" id="search-keyword" class="form-control" data-i18n-placeholder="mc.serverCore.searchCore"></div>
+
+        <div class="w-full lg:w-2/3 xl:w-3/4">
+            <div class="bg-white/60 dark:bg-slate-800/60 backdrop-blur-xl border border-blue-500/10 dark:border-white/10 shadow-lg rounded-2xl overflow-hidden">
+                <div class="p-6 md:p-8">
+
+                    <div id="servers-panel" class="hidden">
+                        <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-6">
+                            <h3 class="text-lg font-semibold m-0" data-i18n="mc.serverCore.selectCore"></h3>
+                            <div class="relative w-full md:w-64">
+                                <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-slate-400">
+                                    <i class="fa-solid fa-search"></i>
+                                </span>
+                                <input type="text" id="search-keyword" class="w-full pl-10 pr-4 py-2 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-shadow text-sm" data-i18n-placeholder="mc.serverCore.searchCore">
+                            </div>
                         </div>
-                        <div id="servers-grid" class="row row-cols-1 row-cols-sm-2 row-cols-xl-3 g-3"></div>
+                        <div id="servers-grid" class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-3"></div>
                     </div>
-                    <div id="versions-panel" class="d-none mt-4">
-                        <div class="panel-header d-flex justify-content-between align-items-center mb-4">
-                            <h3 id="version-card-title" class="fs-5 fw-semibold mb-0"></h3>
-                            <button id="refresh-versions-btn" class="btn btn-sm btn-outline-primary d-flex align-items-center gap-1"><i class="fa-solid fa-arrows-rotate"></i><span data-i18n="mc.serverCore.refresh"></span></button>
+
+                    <div id="versions-panel" class="hidden mt-8 pt-8 border-t border-slate-200/50 dark:border-slate-700/50">
+                        <div class="flex justify-between items-center mb-6">
+                            <h3 id="version-card-title" class="text-lg font-semibold m-0"></h3>
+                            <button id="refresh-versions-btn" class="px-3 py-1.5 text-sm border border-primary text-primary hover:bg-primary hover:text-white rounded-lg transition-colors flex items-center gap-2">
+                                <i class="fa-solid fa-arrows-rotate"></i><span data-i18n="mc.serverCore.refresh"></span>
+                            </button>
                         </div>
                         <div id="versions-container"></div>
                     </div>
-                    <div id="empty-state" class="text-center p-5">
-                        <i class="fa-solid fa-cloud display-1 text-body-tertiary mb-3"></i>
-                        <h3 class="fs-4 fw-semibold" data-i18n="mc.serverCore.startSelect"></h3>
-                        <p class="text-body-secondary" data-i18n="mc.serverCore.selectCategoryFirst"></p>
+
+                    <div id="empty-state" class="text-center py-20">
+                        <i class="fa-solid fa-cloud text-7xl text-slate-300 dark:text-slate-600 mb-6"></i>
+                        <h3 class="text-xl font-semibold mb-2" data-i18n="mc.serverCore.startSelect"></h3>
+                        <p class="text-slate-500 dark:text-slate-400" data-i18n="mc.serverCore.selectCategoryFirst"></p>
                     </div>
                 </div>
             </div>
@@ -102,37 +132,52 @@
     </div>
 </main>
 
-<div class="modal fade" id="verificationModal" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header"><h1 class="modal-title fs-5" id="verificationModalLabel" data-i18n="mc.serverCore.fileVerification"></h1><button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button></div>
-            <div class="modal-body">
-                <p><strong data-i18n="mc.serverCore.server"></strong>: <span id="modal-server-name"></span></p>
-                <p><strong data-i18n="mc.serverCore.version"></strong>: <span id="modal-version-name"></span></p>
-                <div class="mb-2"><strong>SHA256:</strong></div>
-                <pre class="bg-body-tertiary p-2 rounded"><code><small id="modal-sha256"></small></code></pre>
+<div id="verificationModal" class="fixed inset-0 z-50 hidden overflow-y-auto" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+    <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+        <div class="fixed inset-0 bg-slate-900/50 backdrop-blur-sm transition-opacity modal-backdrop" aria-hidden="true"></div>
+        <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
+        <div class="inline-block align-bottom bg-white dark:bg-slate-800 rounded-xl text-left overflow-hidden shadow-2xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg w-full border border-slate-200 dark:border-slate-700">
+            <div class="px-6 py-4 border-b border-slate-200 dark:border-slate-700 flex justify-between items-center">
+                <h3 class="text-lg font-medium leading-6" id="modal-title" data-i18n="mc.serverCore.fileVerification"></h3>
+                <button type="button" class="modal-close text-slate-400 hover:text-slate-500 focus:outline-none">
+                    <i class="fa-solid fa-xmark text-xl"></i>
+                </button>
             </div>
-            <div class="modal-footer"><button type="button" class="btn btn-primary" data-bs-dismiss="modal" data-i18n="common.confirm"></button></div>
+            <div class="px-6 py-5">
+                <p class="mb-2"><strong data-i18n="mc.serverCore.server"></strong>: <span id="modal-server-name" class="text-slate-600 dark:text-slate-300"></span></p>
+                <p class="mb-4"><strong data-i18n="mc.serverCore.version"></strong>: <span id="modal-version-name" class="text-slate-600 dark:text-slate-300"></span></p>
+                <div class="mb-2 text-sm font-semibold">SHA256:</div>
+                <pre class="bg-slate-100 dark:bg-slate-900 p-3 rounded-lg overflow-x-auto border border-slate-200 dark:border-slate-700 text-sm"><code id="modal-sha256" class="text-slate-700 dark:text-slate-300 select-all"></code></pre>
+            </div>
+            <div class="px-6 py-4 bg-slate-50 dark:bg-slate-800/50 border-t border-slate-200 dark:border-slate-700 flex justify-end">
+                <button type="button" class="modal-close px-4 py-2 bg-primary text-white rounded-lg hover:bg-blue-600 transition-colors font-medium shadow-sm" data-i18n="common.confirm"></button>
+            </div>
         </div>
     </div>
 </div>
-<div class="toast-container position-fixed bottom-0 end-0 p-3">
-    <div id="appToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
-        <div class="toast-header"><i id="toast-icon" class="fa-solid me-2"></i><strong id="toast-title" class="me-auto"></strong><button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button></div>
-        <div id="toast-body" class="toast-body"></div>
+
+<div class="fixed bottom-4 right-4 z-50 flex flex-col gap-2">
+    <div id="appToast" class="transform translate-y-full opacity-0 transition-all duration-300 ease-out bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 shadow-xl rounded-xl p-4 flex items-start gap-3 w-80">
+        <i id="toast-icon" class="fa-solid mt-0.5 text-lg"></i>
+        <div class="flex-1">
+            <h4 id="toast-title" class="font-semibold text-sm m-0"></h4>
+            <div id="toast-body" class="text-sm text-slate-500 dark:text-slate-400 mt-1"></div>
+        </div>
+        <button type="button" class="toast-close text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 focus:outline-none">
+            <i class="fa-solid fa-xmark"></i>
+        </button>
     </div>
 </div>
 
-<footer class="py-4 mt-auto text-center position-relative">
-    <div class="container">
-        <p class="text-body-secondary small mb-1" data-i18n="footer.copyright"></p>
-        <p class="text-body-secondary small mb-0">
-            <a href="https://beian.miit.gov.cn/" target="_blank" class="text-reset text-decoration-none" data-i18n="footer.icp"></a>
+<footer class="py-6 mt-auto text-center relative z-10 border-t border-slate-200/50 dark:border-slate-700/50">
+    <div class="container mx-auto px-4">
+        <p class="text-slate-500 dark:text-slate-400 text-sm mb-2" data-i18n="footer.copyright"></p>
+        <p class="text-slate-500 dark:text-slate-400 text-sm m-0">
+            <a href="https://beian.miit.gov.cn/" target="_blank" class="hover:text-primary transition-colors" data-i18n="footer.icp"></a>
         </p>
     </div>
 </footer>
 
-<script src="https://jsdmirrors.aino.cyou/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 <script src="lang/zh-CN.js"></script>
 <script src="lang/zh-TW.js"></script>
 <script src="lang/en-US.js"></script>
