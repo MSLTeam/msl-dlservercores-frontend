@@ -175,17 +175,17 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- API 调用 ---
     const API = {
         async getMCServerCoreClassify() {
-            const response = await fetch('https://api.mslmc.cn/v3/query/server_classify');
+            const response = await fetch('https://api.mslmc.cn/v4/mirrors');
             if (!response.ok) throw new Error('Network response was not ok');
             return response.json();
         },
         async getMCServerCoreSupportVersion(name) {
-            const response = await fetch(`https://api.mslmc.cn/v3/query/available_versions/${name}`);
+            const response = await fetch(`https://api.mslmc.cn/v4/mirrors/${name}`);
             if (!response.ok) throw new Error('Network response was not ok');
             return response.json();
         },
         async getMCServerDownloadUrl(name, version) {
-            const response = await fetch(`https://api.mslmc.cn/v3/download/server/${name}/${version}`);
+            const response = await fetch(`https://api.mslmc.cn/v4/download/server/${name}/${version}`);
             if (!response.ok) throw new Error('Network response was not ok');
             return response.json();
         }
@@ -331,7 +331,7 @@ document.addEventListener('DOMContentLoaded', () => {
         try {
             const res = await API.getMCServerCoreSupportVersion(serverName);
             if (res.code === 200) {
-                state.versions = res.data.versionList;
+                state.versions = res.data.versions;
             } else {
                 toastUtils.show(res.message || t('mc.serverCore.getVersionsFailed'), t('common.error'), 'error');
             }
