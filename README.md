@@ -3,9 +3,9 @@
 ![GitHub Actions Workflow Status](https://github.com/MSLTeam/msl-dlservercores-frontend/actions/workflows/deploy-pages.yml/badge.svg)
 ![License: AGPL v3](https://img.shields.io/badge/License-AGPL_v3-blue.svg)
 
-这是一个用于下载各种 Minecraft 服务端核心的前端界面，使用原生 JavaScript 和 Bootstrap 构建，由 MSL-API-V3 提供支持。
+这是一个用于下载各种 Minecraft 服务端核心的前端界面，使用原生 JavaScript 和 Tailwind CSS 构建，由 MSL-API-V4 提供支持。
 
-A front-end interface for downloading various Minecraft server cores, built with vanilla JS and Bootstrap, powered by the MSL-API-V3.
+A front-end interface for downloading various Minecraft server cores, built with vanilla JS and Tailwind CSS, powered by the MSL-API-V4.
 
 ---
 
@@ -22,16 +22,16 @@ A front-end interface for downloading various Minecraft server cores, built with
 ### 🎨 界面预览 (Screenshot)
 
 
-![项目截图](./image.webp)
+![项目截图](./ScreenShot_zh_CN.jpg)
 
 
 ### 🛠️ 技术栈 (Tech Stack)
 
 * **前端**: HTML5, CSS3, Vanilla JavaScript (ES6+)
-* **UI 框架**: Bootstrap 5, Font Awesome
+* **UI 框架**: Tailwind CSS, Font Awesome
 * **构建工具**: Parcel
 * **部署**: GitHub Actions, GitHub Pages
-* **后端 API**: MSL-API-V3
+* **后端 API**: MSL-API-V4
 
 ### 🚀 快速开始 (Getting Started)
 
@@ -82,5 +82,5 @@ npm run build
 
 ### ❤️ 致谢 (Acknowledgements)
 * 本项目由 [MSLTeam](https://github.com/MSLTeam) 提供。
-* 所有下载资源均来自 [MSL-API-V3](https://www.mslmc.cn/docs/other/msl-mirrors.html)。
-* 欢迎使用我们的 [MSL 开服器](https://www.mslmc.cn/)。
+* 所有下载资源均来自 [MSL-API-V4](https://www.mslmc.cn/docs/other/msl-mirrors.html)。
+* 欢迎使用我们的 [MSL 开服器](https://www.mslmc.cn/) / [MSLX 开服器](https://mslx.mslmc.cn/)。

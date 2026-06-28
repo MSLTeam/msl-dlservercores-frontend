@@ -1,5 +1,6 @@
 const translations_zh_CN = {
     'mc.serverCore.title': 'Minecraft 服务端核心下载',
+    'mc.serverCore.welcome': '欢迎使用 MSL 的服务端镜像下载服务！',
     'mc.serverCore.description': '选择适合您的 Minecraft 服务器核心，支持插件、模组、原版等多种类型。',
     'mc.serverCore.categories': '服务端分类',
     'mc.serverCore.selectType': '选择您需要的服务端类型',

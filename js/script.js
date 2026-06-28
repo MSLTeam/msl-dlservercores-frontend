@@ -6,6 +6,7 @@ document.addEventListener('DOMContentLoaded', () => {
         selectedCategory: null,
         selectedServer: null,
         selectedVersion: null,
+        serverDescription: '',
         loadingVersions: false,
         loadingDownload: false,
         searchKeyword: '',
@@ -20,6 +21,7 @@ document.addEventListener('DOMContentLoaded', () => {
         versionsPanel: document.getElementById('versions-panel'),
         versionsContainer: document.getElementById('versions-container'),
         versionCardTitle: document.getElementById('version-card-title'),
+        versionCardDesc: document.getElementById('version-card-desc'),
         emptyState: document.getElementById('empty-state'),
         searchInput: document.getElementById('search-keyword'),
         refreshBtn: document.getElementById('refresh-versions-btn'),
@@ -270,6 +272,14 @@ document.addEventListener('DOMContentLoaded', () => {
         elements.versionsPanel.classList.remove('hidden');
         elements.versionCardTitle.textContent = `${state.selectedServer}`;
 
+        const descWrapper = document.getElementById('version-card-desc-wrapper');
+        const descEl = document.getElementById('version-card-desc');
+        
+        if (descEl && descWrapper) {
+            descEl.textContent = state.serverDescription;
+            descWrapper.classList.toggle('hidden', !state.serverDescription);
+        }
+
         if (state.loadingVersions) {
             elements.versionsContainer.innerHTML = `
                 <div class="flex flex-col items-center justify-center py-12">
@@ -317,6 +327,7 @@ document.addEventListener('DOMContentLoaded', () => {
         state.selectedServer = null;
         state.selectedVersion = null;
         state.versions = [];
+        state.serverDescription = '';
         state.searchKeyword = '';
         elements.searchInput.value = '';
         renderAll();
@@ -326,12 +337,14 @@ document.addEventListener('DOMContentLoaded', () => {
         state.selectedServer = serverName;
         state.selectedVersion = null;
         state.versions = [];
+        state.serverDescription = '';
         state.loadingVersions = true;
         renderAll();
         try {
             const res = await API.getMCServerCoreSupportVersion(serverName);
             if (res.code === 200) {
                 state.versions = res.data.versions;
+                state.serverDescription = res.data.description || '';
             } else {
                 toastUtils.show(res.message || t('mc.serverCore.getVersionsFailed'), t('common.error'), 'error');
             }

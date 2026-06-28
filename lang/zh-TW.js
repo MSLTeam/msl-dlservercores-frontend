@@ -1,5 +1,6 @@
 const translations_zh_TW = {
     'mc.serverCore.title': 'Minecraft 伺服器核心下載',
+    'mc.serverCore.welcome': '歡迎使用 MSL 的伺服器端鏡像下載服務！',
     'mc.serverCore.description': '選擇適合您的 Minecraft 伺服器核心，支援插件、模組、原版等多種類型。',
     'mc.serverCore.categories': '伺服器分類',
     'mc.serverCore.selectType': '選擇您需要的伺服器類型',

@@ -1,5 +1,6 @@
 const translations_en_US = {
     'mc.serverCore.title': 'Minecraft Server Core Download',
+    'mc.serverCore.welcome': 'Welcome to the MSL server core mirror download service!',
     'mc.serverCore.description': 'Choose the right Minecraft server core for you, supporting plugins, mods, vanilla and more.',
     'mc.serverCore.categories': 'Server Categories',
     'mc.serverCore.selectType': 'Select the type of server you need',
